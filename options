@@ -1,0 +1,27 @@
+####################
+#|  BASH OPTIONS
+# (for example, cd /vr/lgo/apaache would find /var/log/apache)
+shopt -s cdspell                 # Correct cd typos.  When changing directory small typos can be ignored by bash
+shopt -s checkwinsize            # Fix annoying line wrapping issues after resize terminal window.
+shopt -s histverify              # Verify history before re-running a command via !<last_command>
+shopt -s histappend              # When session close, history will append to .bash_history file rather than overwriting
+
+# cmdhist If set, bash attempts to save all lines of a multiple-line command in the same history entry.
+#        Allow easy re-editing of multi-line commands.
+shopt -ps cmdhist
+
+# lithist If set, and the cmdhist option is enabled, multi-line commands are saved to the history with embedded
+#        newlines rather than using semicolon separators where possible.
+shopt -pu lithist
+
+
+########################
+##  COMPLETE
+complete -c type which man whatis locate ## (-c) Add auto complete for specific commands
+complete -d -f ll ls lcd goal            ## (-d / -f) Add auto complete for directories and files
+
+## better ssh hostname autocomplete 
+complete -o default -o nospace -W "$( { cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | ;  \
+                grep '^Host' ~/.ssh/config ~/.ssh/config.d/* 2>/dev/null | grep -v '[?*]' | cut -d ' ' -f 2-; } \
+                | sed -e 's/.my.domain.name.com//' -e 's/.domain2.com//'                                     \
+                | sort -u)" host ping rsync scp sftp ssh 
