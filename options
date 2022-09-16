@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 ####################
 #|  BASH OPTIONS
 # (for example, cd /vr/lgo/apaache would find /var/log/apache)
